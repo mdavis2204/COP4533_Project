@@ -12,7 +12,7 @@ def read_num(file):
             out_str += temp
     return int(out_str)
 
-with open('example_input1.txt') as file:
+with open('inputs/example_input1.txt') as file:
     length = int(file.readline())
 
 

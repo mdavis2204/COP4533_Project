@@ -45,13 +45,15 @@ if __name__ == "__main__":
         top_student = hospital_ranks[hospital][0]
         hospital_ranks[hospital].pop(0) # prevent re-assignment to same student
         
-        if(assignment_of_s[top_student] == -1): # if student is free
+        if assignment_of_s[top_student] == -1: # if student is free
             assignment_of_s[top_student] = hospital
             assignment_of_h[hospital] = top_student
-        elif(student_ranks[top_student][hospital] < student_ranks[top_student][assignment_of_s[top_student]]): # if student is not free but prefers new hospital over their current
+        elif student_ranks[top_student].index(hospital) < student_ranks[top_student].index(assignment_of_s[top_student]): # if student prefers new hospital over their current
+            old_hospital = assignment_of_s[top_student]
             assignment_of_s[top_student] = hospital
             assignment_of_h[hospital] = top_student
-            free_hospitals.append(assignment_of_s[top_student])
+            assignment_of_h[old_hospital] = -1
+            free_hospitals.append(old_hospital)
         else: # if student prefers their current hospital over new hospital
             free_hospitals.append(hospital)
             pass     

@@ -4,8 +4,8 @@ def read_num(file):
     out_str = ''
     while True:
         temp = file.read(1)
-        print(temp)
-        if temp == ' ':
+        print(f"Temp: {temp}")
+        if temp == '' or temp == ' ' or temp == '\n':
             break
         else:
             out_str += temp
@@ -15,21 +15,20 @@ if __name__ == "__main__":
     # STEP 1: Read input file and build rank arrays
     with open('inputs/example_input1.txt') as file:
         length = int(file.readline())
+        print(f"Length: {length}")
 
         hospital_ranks = [] # 2D array [x, y] where x is hospital number starting at 0
         for _ in range(length):
             temp_hospital = []
             for _ in range(length):
-                temp_hospital.append(read_num(file, length))
-                file.read(1)
+                temp_hospital.append(read_num(file))
             hospital_ranks.append(temp_hospital)
 
         student_ranks = []
         for _ in range(length):
             temp_student = []
             for _ in range(length):
-                temp_student.append(read_num(file, length))
-                file.read(1)
+                temp_student.append(read_num(file))
             student_ranks.append(temp_student)
 
     # assignment_of_h[i] contains the student number assigned to hospital number i
@@ -52,7 +51,17 @@ if __name__ == "__main__":
     while free_hospitals:
         hospital = free_hospitals.pop(0)
         top_student = hospital_ranks[hospital][0]
+        hospital_ranks[hospital].pop(0) # prevent re-assignment to same student
+        
         if(assignment_of_s[top_student] == 0): # if student is free
+            assignment_of_s[top_student] = hospital
+            assignment_of_h[hospital] = top_student
+        elif(student_ranks[top_student][hospital] < student_ranks[top_student][assignment_of_s[top_student]]): # if student is not free but prefers new hospital over their current
+            assignment_of_s[top_student] = hospital
+            assignment_of_h[hospital] = top_student
+            free_hospitals.append(assignment_of_s[top_student])
+        else: # if student prefers their current hospital over new hospital
+            pass
 
         # for i in range(length): # loop through all hospitals
         #     if(assignments[i] == 0): # if 0 then no student was assigned yet to hospital i
@@ -74,7 +83,8 @@ if __name__ == "__main__":
 
         all_assigned = True
     
-    print(assignments)
+    print(assignment_of_h)
+    print(assignment_of_s)
 
 
 # TODO: Output

@@ -1,5 +1,4 @@
-# Reading file
-
+# Read single number from file
 def read_num(file):
     out_str = ''
     while True:
@@ -9,7 +8,7 @@ def read_num(file):
             break
         else:
             out_str += temp
-    return int(out_str)
+    return int(out_str) - 1 # subtract 1 to convert to 0-indexed array
 
 if __name__ == "__main__":
     # STEP 1: Read input file and build rank arrays
@@ -32,28 +31,21 @@ if __name__ == "__main__":
             student_ranks.append(temp_student)
 
     # assignment_of_h[i] contains the student number assigned to hospital number i
-    assignment_of_h = [0] * length
+    assignment_of_h = [-1] * length
     # assignment_of_s[i] contains the student number assigned to hospital number i
-    assignment_of_s = [0] * length
+    assignment_of_s = [-1] * length
 
     # build list of free hospitals (all hospitals i start free)
     free_hospitals = []
     for i in range(length):
         free_hospitals.append(i)
-
-    # Note to Matthew before going to sleep: I'm not sure current implementation will work, instead...
-    # We should have a list of unassigned hospitals
-    # Then while unassigned hospitals is not empty, we iterate
-    # in one iteration we get the top student in the hospital h's rank list "to whom h has not been matched"
-    # we check if student is free and if student prefers h over hospital they are assigned to, and reassign the student to h if so
-
     # STEP 2: Run Gale-Shapley algorithm
     while free_hospitals:
         hospital = free_hospitals.pop(0)
         top_student = hospital_ranks[hospital][0]
         hospital_ranks[hospital].pop(0) # prevent re-assignment to same student
         
-        if(assignment_of_s[top_student] == 0): # if student is free
+        if(assignment_of_s[top_student] == -1): # if student is free
             assignment_of_s[top_student] = hospital
             assignment_of_h[hospital] = top_student
         elif(student_ranks[top_student][hospital] < student_ranks[top_student][assignment_of_s[top_student]]): # if student is not free but prefers new hospital over their current
@@ -61,31 +53,15 @@ if __name__ == "__main__":
             assignment_of_h[hospital] = top_student
             free_hospitals.append(assignment_of_s[top_student])
         else: # if student prefers their current hospital over new hospital
-            pass
-
-        # for i in range(length): # loop through all hospitals
-        #     if(assignments[i] == 0): # if 0 then no student was assigned yet to hospital i
-        #         all_assigned = False
-
-        #         # Part 1, initial if
-        #         allocated = False
-        #         # loop through assigned students
-        #         for student in assignments:
-        #             if(hospital_ranks[i][0] == student): # if top student in hospital i's rank list is already assigned to a hospital
-        #                 allocated = True
-
-        #         if(not allocated):
-        #             assignments[i] = hospital_ranks[i][0]
-        #             continue
-
-        #         # Part 2, else if
-
+            free_hospitals.append(hospital)
+            pass     
 
         all_assigned = True
-    
-    print(assignment_of_h)
-    print(assignment_of_s)
 
+    def convert_to_1_index(array):
+        return [x + 1 for x in array]
+    print(f"Assignments of H: {convert_to_1_index(assignment_of_h)}")
+    print(f"Assignments of S: {convert_to_1_index(assignment_of_s)}")
 
 # TODO: Output
     # Note, array index starts at 0, hospital/student numbers begin at 1. Just add 1.

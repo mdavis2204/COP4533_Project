@@ -1,5 +1,4 @@
 # Reading file
-# TODO: allow for >2 digit numbers
 
 def read_num(file):
     out_str = ''
@@ -21,8 +20,7 @@ if __name__ == "__main__":
         for _ in range(length):
             temp_hospital = []
             for _ in range(length):
-                # temp_hospital.append(read_num(file, length))
-                temp_hospital.append(int(file.read(1))) # TODO: allow for more than 1 digit numbers
+                temp_hospital.append(read_num(file, length))
                 file.read(1)
             hospital_ranks.append(temp_hospital)
 
@@ -30,16 +28,19 @@ if __name__ == "__main__":
         for _ in range(length):
             temp_student = []
             for _ in range(length):
-                # temp_student.append(read_num(file, length))
-                temp_student.append(int(file.read(1)))
+                temp_student.append(read_num(file, length))
                 file.read(1)
             student_ranks.append(temp_student)
 
-    # assignments[i] contains the student number assigned to hospital number i
-    assignments = [0] * length
+    # assignment_of_h[i] contains the student number assigned to hospital number i
+    assignment_of_h = [0] * length
+    # assignment_of_s[i] contains the student number assigned to hospital number i
+    assignment_of_s = [0] * length
 
-    all_assigned = False
-
+    # build list of free hospitals (all hospitals i start free)
+    free_hospitals = []
+    for i in range(length):
+        free_hospitals.append(i)
 
     # Note to Matthew before going to sleep: I'm not sure current implementation will work, instead...
     # We should have a list of unassigned hospitals
@@ -48,24 +49,27 @@ if __name__ == "__main__":
     # we check if student is free and if student prefers h over hospital they are assigned to, and reassign the student to h if so
 
     # STEP 2: Run Gale-Shapley algorithm
-    while not all_assigned:
-        all_assigned = True
-        for i in range(len(assignments)): # loop through all hospitals
-            if(assignments[i] == 0): # if 0 then no student was assigned yet to hospital i
-                all_assigned = False
+    while free_hospitals:
+        hospital = free_hospitals.pop(0)
+        top_student = hospital_ranks[hospital][0]
+        if(assignment_of_s[top_student] == 0): # if student is free
 
-                # Part 1, initial if
-                allocated = False
-                # loop through assigned students
-                for student in assignments:
-                    if(hospital_ranks[i][0] == student): # if top student in hospital i's rank list is already assigned to a hospital
-                        allocated = True
+        # for i in range(length): # loop through all hospitals
+        #     if(assignments[i] == 0): # if 0 then no student was assigned yet to hospital i
+        #         all_assigned = False
 
-                if(not allocated):
-                    assignments[i] = hospital_ranks[i][0]
-                    continue
+        #         # Part 1, initial if
+        #         allocated = False
+        #         # loop through assigned students
+        #         for student in assignments:
+        #             if(hospital_ranks[i][0] == student): # if top student in hospital i's rank list is already assigned to a hospital
+        #                 allocated = True
 
-                # Part 2, else if
+        #         if(not allocated):
+        #             assignments[i] = hospital_ranks[i][0]
+        #             continue
+
+        #         # Part 2, else if
 
 
         all_assigned = True

@@ -16,6 +16,12 @@ Example output: ["example_outputs/example_output1.txt"](./example_outputs/exampl
 
 For the Gale Shapley main function we assume that the user will edit the file path they want to read from. For the Gale_Shapley function inside of the file, we assume that hospital and student preferences are the same size.
 
+Runtime/Task C Explanation: ["TaskCExplanation.pdf"](TaskCExplanation.pdf)
+
 Runtime Graph: ["runtime_graphs/Algorithm_Runtimes_Plotted.png"](./runtime_graphs/Algorithm_Runtimes_Plotted.png)
 
+Verification Time Graph: ["runtime_graphs/Verification_Runtimes_Plotted.png"](./runtime_graphs/Verification_Runtimes_Plotted.png)
+
 Runtime Function (requires matplotlib.pyplot): ["Plot_Runtime.py"](./Plot_Runtime.py)
+
+Run it with "python Plot_Runtime.py", example graphs are here: ["runtime_graphs"](./runtime_graphs)

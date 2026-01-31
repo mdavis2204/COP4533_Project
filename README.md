@@ -1,16 +1,16 @@
 # COP4533 Project 1
 
 Team:
-  Matthew Davis, UFID 6835-3882,
+  Matthew Davis, UFID 6835-3882
   William Zhu, UFID 3189-3413
 
 # Gale Shapley Algorithm and Verifier Deliverables
 
 **Source code for Gale Shapley algorithm and Verifier**: ["Gale_Shapley.py"](./Gale_Shapley.py)
-**def gale_shapley**, and **def verification** are the functions for Gale Shapley algorithm and Verifier respectively.
+**def gale_shapley** and **def verification** are the functions for Gale Shapley algorithm and Verifier respectively.
 
 **To run the code, you must have python installed.**
-How to install python: [https://www.youtube.com/watch?v=8mO6QXOcpqU]
+How to install python: [https://www.youtube.com/watch?v=8mO6QXOcpqU].
 
 Run code: "python Gale_Shapley.py"
 
@@ -28,6 +28,8 @@ Answers to Task C are located in: ["TaskC.pdf"](TaskC.pdf)
 
 **Runtime Graph and Verification Time Graph** are also both in ["TaskC.pdf"](TaskC.pdf)
 
-Runtime Function (requires matplotlib.pyplot): ["Plot_Runtime.py"](./Plot_Runtime.py)
+**Runtime Measurer**: ["Runtime_Tester.py"](./Runtime_Tester.py)
+Run "python Runtime_Tester.py" and it will output the runtime in seconds to the console.
 
-Run it with "python Plot_Runtime.py", and it will output the graphs to your screen, and the runtime in seconds to the console.
+**Runtime Plotting Function** (requires matplotlib.pyplot): ["Plot_Runtime.py"](./Plot_Runtime.py)
+Run it with "python Plot_Runtime.py", and it will output the graphs to your screen and the runtime in seconds to the console.

@@ -112,8 +112,9 @@ if __name__ == "__main__":
                 temp_student.append(read_num(file))
             student_ranks.append(temp_student)
 
-        hospital_copy = hospital_ranks.copy()
-        student_copy = student_ranks.copy()
+        import copy
+        hospital_copy = copy.deepcopy(hospital_ranks)
+        student_copy = copy.deepcopy(student_ranks)
     
     assignment_of_h, assignment_of_s = gale_shapley(hospital_ranks, student_ranks, length)    
 

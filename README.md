@@ -7,3 +7,8 @@ Team:
 Run code with verifier: "python Gale_Shapley.py"
   Verifier will always run
 
+Example input: "inputs/example_input1.txt"
+
+Example output: "example_outputs/example_output1.txt"
+
+For the Gale Shapley main function we assume that the user will edit the file path they want to read from. For the Gale_Shapley function inside of the file, we assume that hospital and student preferences are the same size.

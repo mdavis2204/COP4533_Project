@@ -42,7 +42,7 @@ def verification(length, hospital_rank, student_rank, assignment_of_h, assignmen
     if stable: # If no blocking pairs found, print "VALID STABLE"
         print("VALID STABLE")
 
-def gale_shapley(hospital_ranks, student_ranks, length):
+def gale_shapley(hospital_ranks, student_ranks, length, print_assignments = True):
     # assignment_of_h[i] contains the student number assigned to hospital number i
     assignment_of_h = [-1] * length
     # assignment_of_s[i] contains the student number assigned to hospital number i
@@ -73,8 +73,9 @@ def gale_shapley(hospital_ranks, student_ranks, length):
             pass     
 
     # Fixed print function
-    for hospital in range(length):
-        print(f"{hospital + 1} {assignment_of_h[hospital] + 1}")
+    if print_assignments:
+        for hospital in range(length):
+            print(f"{hospital + 1} {assignment_of_h[hospital] + 1}")
 
     return assignment_of_h, assignment_of_s
 
@@ -100,6 +101,6 @@ if __name__ == "__main__":
         hospital_copy = hospital_ranks.copy()
         student_copy = student_ranks.copy()
     
-    assignment_of_h, assignment_of_s =gale_shapley(hospital_ranks, student_ranks, length)    
+    assignment_of_h, assignment_of_s = gale_shapley(hospital_ranks, student_ranks, length)    
 
     verification(length, hospital_copy, student_copy, assignment_of_h, assignment_of_s)

@@ -4,7 +4,12 @@ Team:
   Matthew Davis, UFID 6835-3882,
   William Zhu, UFID 3189-3413
 
-Source code: ["Gale_Shapley.py"](./Gale_Shapley.py)
+# Gale Shapley Algorithm and Verifier Deliverables
+
+**Source code for Gale Shapley algorithm and Verifier**: ["Gale_Shapley.py"](./Gale_Shapley.py)
+
+**To run the code, you must have python installed.**
+How to install python: [https://www.youtube.com/watch?v=8mO6QXOcpqU]
 
 Run code: "python Gale_Shapley.py"
 
@@ -15,6 +20,8 @@ Example input: ["inputs/example_input1.txt"](./inputs/example_input1.txt)
 Example output: ["example_outputs/example_output1.txt"](./example_outputs/example_output1.txt)
 
 For the Gale Shapley main function we assume that the user will edit the file path they want to read from. For the Gale_Shapley function inside of the file, we assume that hospital and student preferences are the same size.
+
+# Runtime/Task C Deliverables
 
 Runtime/Task C Explanation: ["TaskCExplanation.pdf"](TaskCExplanation.pdf)
 

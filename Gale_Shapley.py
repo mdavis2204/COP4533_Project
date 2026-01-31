@@ -48,7 +48,7 @@ def verification(length, hospital_rank, student_rank, assignment_of_h, assignmen
                 if student_verify[student][hospital] < student_verify[student][assignment_of_s[student]]:
                     # If a hospital prefers a student over its current assignment and the student does too,
                         # Print blocking pair, make stable false, and break to save time
-                    print(f"UNSTABLE: blocking pair (hospital {hospital + 1}, student {student + 1}")
+                    print(f"UNSTABLE: blocking pair (hospital {hospital + 1}, student {student + 1})")
                     stable = False
                     return f"UNSTABLE: blocking pair (hospital {hospital + 1}, student {student + 1}"
         if not stable:
@@ -115,8 +115,8 @@ if __name__ == "__main__":
         import copy
         hospital_copy = copy.deepcopy(hospital_ranks)
         student_copy = copy.deepcopy(student_ranks)
-    
-    assignment_of_h, assignment_of_s = gale_shapley(hospital_ranks, student_ranks, length)    
+
+    assignment_of_h, assignment_of_s = gale_shapley(hospital_ranks, student_ranks, length)
 
     if len(sys.argv) > 1:
         cli_input = sys.argv[1]

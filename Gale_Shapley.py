@@ -1,3 +1,5 @@
+import sys
+
 # Read single number from file
 def read_num(file):
     out_str = ''
@@ -116,4 +118,7 @@ if __name__ == "__main__":
     
     assignment_of_h, assignment_of_s = gale_shapley(hospital_ranks, student_ranks, length)    
 
-    verification(length, hospital_copy, student_copy, assignment_of_h, assignment_of_s)
+    if(sys.argv.__len__() > 1):
+        cli_input = sys.argv[1]
+        if(cli_input == "-v" or cli_input == "-verify"):
+            verification(length, hospital_copy, student_copy, assignment_of_h, assignment_of_s)

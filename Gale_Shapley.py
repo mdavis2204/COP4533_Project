@@ -96,7 +96,18 @@ def gale_shapley(hospital_ranks, student_ranks, length, print_assignments = True
 if __name__ == "__main__":
     # STEP 1: Read input file and build rank arrays
     with open('inputs/example_input1.txt') as file:
-        length = int(file.readline())
+        first_line = file.readline().strip()
+
+        # Handle empty file
+        if not first_line:
+            print("INVALID: empty file")
+            sys.exit(1)
+
+        try:
+            length = int(first_line)
+        except ValueError:
+            print("ERROR: first line must be an integer")
+            sys.exit(1)
 
         hospital_ranks = [] # 2D array [x, y] where x is hospital number starting at 0
         for _ in range(length):

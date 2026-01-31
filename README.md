@@ -1,4 +1,4 @@
-# COP4533_Project
+# COP4533 Project 1
 
 Team:
   Matthew Davis, UFID 6835-3882,

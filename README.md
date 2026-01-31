@@ -24,4 +24,4 @@ Verification Time Graph: ["runtime_graphs/Verification_Runtimes_Plotted.png"](./
 
 Runtime Function (requires matplotlib.pyplot): ["Plot_Runtime.py"](./Plot_Runtime.py)
 
-Run it with "python Plot_Runtime.py" and the graphs will be output to ["runtime_graphs"](./runtime_graphs)
+Run it with "python Plot_Runtime.py", example graphs are here: ["runtime_graphs"](./runtime_graphs)

@@ -1,7 +1,6 @@
 from Gale_Shapley import gale_shapley, verification
 import time
 
-
 def generate_normal_ranks(length):
     # Generates normal ranks for hospitals and students
     # Example:
@@ -23,9 +22,10 @@ def generate_normal_ranks(length):
         preference_ranks.append(list(range(length)))
     return preference_ranks
 
-if __name__ == "__main__":
-    # Test with lengths n = n*2, starting at n = 2
-    for length in [2**i for i in range(1, 10)]:
+def test_runtime(max_power_of_2):
+    runtimes = []
+    lengths = []
+    for length in [2**i for i in range(1, max_power_of_2)]:
         hospital_ranks = generate_normal_ranks(length)
         student_ranks = generate_normal_ranks(length)
 
@@ -35,6 +35,14 @@ if __name__ == "__main__":
         end_time = time.perf_counter()
 
         runtime = end_time - start_time
+        runtimes.append(runtime) # For sending to matplotlib to plot
+        lengths.append(length)
         print(f"Runtime for n = {length}: {runtime} seconds")
+    
+    return lengths, runtimes
 
+
+if __name__ == "__main__":
+    # Test with lengths n = n*2, starting at n = 2
+    test_runtime(10)
     print("Runtime Test Complete")

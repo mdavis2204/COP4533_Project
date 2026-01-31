@@ -3,7 +3,6 @@ def read_num(file):
     out_str = ''
     while True:
         temp = file.read(1)
-        # print(f"Temp: {temp}")
         if temp == '' or temp == ' ' or temp == '\n':
             break
         else:
@@ -24,9 +23,6 @@ def verification(length, hospital_rank, student_rank, assignment_of_h, assignmen
         for rank, hospital in enumerate(student_rank[student]):
             student_verify[student][hospital] = rank
 
-    # print(hospital_verify)
-    # print(student_verify)
-
     stable = True; # Assumed stable at beginning
     for hospital in range(length):
         for student in range(length):
@@ -46,29 +42,7 @@ def verification(length, hospital_rank, student_rank, assignment_of_h, assignmen
     if stable: # If no blocking pairs found, print "VALID STABLE"
         print("VALID STABLE")
 
-if __name__ == "__main__":
-    # STEP 1: Read input file and build rank arrays
-    with open('inputs/example_input1.txt') as file:
-        length = int(file.readline())
-        # print(f"Length: {length}")
-
-        hospital_ranks = [] # 2D array [x, y] where x is hospital number starting at 0
-        for _ in range(length):
-            temp_hospital = []
-            for _ in range(length):
-                temp_hospital.append(read_num(file))
-            hospital_ranks.append(temp_hospital)
-
-        student_ranks = []
-        for _ in range(length):
-            temp_student = []
-            for _ in range(length):
-                temp_student.append(read_num(file))
-            student_ranks.append(temp_student)
-
-        hospital_copy = hospital_ranks.copy()
-        student_copy = student_ranks.copy()
-
+def gale_shapley(hospital_ranks, student_ranks, length):
     # assignment_of_h[i] contains the student number assigned to hospital number i
     assignment_of_h = [-1] * length
     # assignment_of_s[i] contains the student number assigned to hospital number i
@@ -98,16 +72,34 @@ if __name__ == "__main__":
             free_hospitals.append(hospital)
             pass     
 
-        all_assigned = True
-
-    def convert_to_1_index(array):
-        return [x + 1 for x in array]
-
-    # print(f"Assignments of H: {convert_to_1_index(assignment_of_h)}")
-    # print(f"Assignments of S: {convert_to_1_index(assignment_of_s)}")
-
     # Fixed print function
     for hospital in range(length):
         print(f"{hospital + 1} {assignment_of_h[hospital] + 1}")
+
+    return assignment_of_h, assignment_of_s
+
+if __name__ == "__main__":
+    # STEP 1: Read input file and build rank arrays
+    with open('inputs/example_input1.txt') as file:
+        length = int(file.readline())
+
+        hospital_ranks = [] # 2D array [x, y] where x is hospital number starting at 0
+        for _ in range(length):
+            temp_hospital = []
+            for _ in range(length):
+                temp_hospital.append(read_num(file))
+            hospital_ranks.append(temp_hospital)
+
+        student_ranks = []
+        for _ in range(length):
+            temp_student = []
+            for _ in range(length):
+                temp_student.append(read_num(file))
+            student_ranks.append(temp_student)
+
+        hospital_copy = hospital_ranks.copy()
+        student_copy = student_ranks.copy()
+    
+    assignment_of_h, assignment_of_s =gale_shapley(hospital_ranks, student_ranks, length)    
 
     verification(length, hospital_copy, student_copy, assignment_of_h, assignment_of_s)

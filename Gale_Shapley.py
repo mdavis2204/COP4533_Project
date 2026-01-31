@@ -45,7 +45,7 @@ def verification(length, hospital_rank, student_rank, assignment_of_h, assignmen
                 continue
 
             if hospital_verify[hospital][student] < hospital_verify[hospital][assignment_of_h[hospital]]:
-                if student_verify[student][hospital] < student_verify[student][assignment_of_s[hospital]]:
+                if student_verify[student][hospital] < student_verify[student][assignment_of_s[student]]:
                     # If a hospital prefers a student over its current assignment and the student does too,
                         # Print blocking pair, make stable false, and break to save time
                     print(f"UNSTABLE: blocking pair (hospital {hospital + 1}, student {student + 1}")

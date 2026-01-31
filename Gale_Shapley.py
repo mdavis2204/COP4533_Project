@@ -11,6 +11,19 @@ def read_num(file):
 
 # Returns string of whether it's stable or why not
 def verification(length, hospital_rank, student_rank, assignment_of_h, assignment_of_s):
+    if -1 in assignment_of_h:
+        print("INVALID: unmatched hospital")
+        return("INVALID: unmatched hospital")
+
+    if -1 in assignment_of_s:
+        print("INVALID: unmatched student")
+        return("INVALID: unmatched student")
+
+    for hospital in range(length):
+        if assignment_of_s[assignment_of_h[hospital]] != hospital:
+            print("INVALID: inconsistent matching")
+            return("INVALID: inconsistent matching")
+
     hospital_verify = [[0] * length for _ in range(length)]
     student_verify = [[0] * length for _ in range(length)]
 

@@ -127,9 +127,19 @@ if __name__ == "__main__":
             print("INVALID: inconsistent length of student ranks")
             exit(-1)
 
+        for s_rank in student_ranks:
+            if s_rank.__len__() != length:
+                print("INVALID: inconsistent length of student ranks")
+                exit(-1)
+
         if hospital_ranks.__len__() != length:
             print("INVALID: inconsistent length of hospital ranks")
             exit(-1)
+
+        for h_rank in hospital_ranks:
+            if h_rank.__len__() != length:
+                print("INVALID: inconsistent length of hospital ranks")
+                exit(-1)
 
         import copy
         hospital_copy = copy.deepcopy(hospital_ranks)

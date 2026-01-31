@@ -45,13 +45,12 @@ def verification(length, hospital_rank, student_rank, assignment_of_h, assignmen
                 continue
 
             if hospital_verify[hospital][student] < hospital_verify[hospital][assignment_of_h[hospital]]:
-                if student_verify[student][hospital] < student_verify[student][assignment_of_s[hospital]]:
+                if student_verify[student][hospital] < student_verify[student][assignment_of_s[student]]:
                     # If a hospital prefers a student over its current assignment and the student does too,
                         # Print blocking pair, make stable false, and break to save time
                     print(f"UNSTABLE: blocking pair (hospital {hospital + 1}, student {student + 1}")
                     stable = False
                     return f"UNSTABLE: blocking pair (hospital {hospital + 1}, student {student + 1}"
-                    break
         if not stable:
             break
     if stable: # If no blocking pairs found, print "VALID STABLE"
@@ -118,7 +117,7 @@ if __name__ == "__main__":
     
     assignment_of_h, assignment_of_s = gale_shapley(hospital_ranks, student_ranks, length)    
 
-    if(sys.argv.__len__() > 1):
+    if len(sys.argv) > 1:
         cli_input = sys.argv[1]
         if(cli_input == "-v" or cli_input == "-verify"):
             verification(length, hospital_copy, student_copy, assignment_of_h, assignment_of_s)

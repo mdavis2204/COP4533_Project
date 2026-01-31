@@ -24,6 +24,7 @@ def generate_normal_ranks(length):
 
 def test_runtime(max_power_of_2):
     runtimes = []
+    v_runtimes = [] # Verification runtimes
     lengths = []
     for length in [2**i for i in range(1, max_power_of_2)]:
         hospital_ranks = generate_normal_ranks(length)
@@ -33,13 +34,20 @@ def test_runtime(max_power_of_2):
         start_time = time.perf_counter()
         assignment_of_h, assignment_of_s = gale_shapley(hospital_ranks, student_ranks, length, False)
         end_time = time.perf_counter()
-
         runtime = end_time - start_time
         runtimes.append(runtime) # For sending to matplotlib to plot
+
+        # Get verification runtimes
+        v_start_time = time.perf_counter()
+        verification(length, hospital_ranks, student_ranks, assignment_of_h, assignment_of_s)
+        v_end_time = time.perf_counter()
+        v_runtime = v_end_time - v_start_time
+        v_runtimes.append(v_runtime) # For sending to matplotlib to plot
+
         lengths.append(length)
         print(f"Runtime for n = {length}: {runtime} seconds")
     
-    return lengths, runtimes
+    return lengths, runtimes, v_runtimes
 
 
 if __name__ == "__main__":

@@ -10,6 +10,42 @@ def read_num(file):
             out_str += temp
     return int(out_str) - 1 # subtract 1 to convert to 0-indexed array
 
+# Returns string of whether it's stable or why not
+def verification(length, hospital_rank, student_rank, assignment_of_h, assignment_of_s):
+    hospital_verify = [[0] * length for _ in range(length)]
+    student_verify = [[0] * length for _ in range(length)]
+
+    # Create ranking lists for hospitals and students, named ??_verify b/c ??_ranks is already used
+    for hospital in range(length):
+        for rank, student in enumerate(hospital_rank[hospital]):
+            hospital_verify[hospital][student] = rank
+
+    for student in range(length):
+        for rank, hospital in enumerate(student_rank[student]):
+            student_verify[student][hospital] = rank
+
+    # print(hospital_verify)
+    # print(student_verify)
+
+    stable = True; # Assumed stable at beginning
+    for hospital in range(length):
+        for student in range(length):
+            if student == assignment_of_h[hospital]:
+                continue
+
+            if hospital_verify[hospital][student] < hospital_verify[hospital][assignment_of_h[hospital]]:
+                if student_verify[student][hospital] < student_verify[student][assignment_of_s[hospital]]:
+                    # If a hospital prefers a student over its current assignment and the student does too,
+                        # Print blocking pair, make stable false, and break to save time
+                    print(f"UNSTABLE: blocking pair (hospital {hospital + 1}, student {student + 1}")
+                    stable = False
+                    return f"UNSTABLE: blocking pair (hospital {hospital + 1}, student {student + 1}"
+                    break
+        if not stable:
+            break
+    if stable: # If no blocking pairs found, print "VALID STABLE"
+        print("VALID STABLE")
+
 if __name__ == "__main__":
     # STEP 1: Read input file and build rank arrays
     with open('inputs/example_input1.txt') as file:
@@ -29,6 +65,9 @@ if __name__ == "__main__":
             for _ in range(length):
                 temp_student.append(read_num(file))
             student_ranks.append(temp_student)
+
+        hospital_copy = hospital_ranks.copy()
+        student_copy = student_ranks.copy()
 
     # assignment_of_h[i] contains the student number assigned to hospital number i
     assignment_of_h = [-1] * length
@@ -71,37 +110,4 @@ if __name__ == "__main__":
     for hospital in range(length):
         print(f"{hospital + 1} {assignment_of_h[hospital] + 1}")
 
-
-    # Verifier
-    hospital_verify = [[0] * length for _ in range(length)]
-    student_verify = [[0] * length for _ in range(length)]
-
-    # Create ranking lists for hospitals and students, named ??_verify b/c ??_ranks is already used
-    for hospital in range(length):
-        for rank, student in enumerate(hospital_ranks[hospital]):
-            hospital_verify[hospital][student] = rank
-
-    for student in range(length):
-        for rank, hospital in enumerate(student_ranks[student]):
-            student_verify[student][hospital] = rank
-
-    # print(hospital_verify)
-    # print(student_verify)
-
-    stable = True; # Assumed stable at beginning
-    for hospital in range(length):
-        for student in range(length):
-            if student == assignment_of_h[hospital]:
-                continue
-
-            if hospital_verify[hospital][student] < hospital_verify[hospital][assignment_of_h[hospital]]:
-                if student_verify[student][hospital] < student_verify[student][assignment_of_s[hospital]]:
-                    # If a hospital prefers a student over its current assignment and the student does too,
-                        # Print blocking pair, make stable false, and break to save time
-                    print(f"UNSTABLE: blocking pair (hospital {hospital + 1}, student {student + 1}")
-                    stable = False
-                    break
-        if not stable:
-            break
-    if stable: # If no blocking pairs found, print "VALID STABLE"
-        print("VALID STABLE")
+    verification(length, hospital_copy, student_copy, assignment_of_h, assignment_of_s)

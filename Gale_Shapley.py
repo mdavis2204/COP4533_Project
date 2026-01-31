@@ -3,7 +3,7 @@ def read_num(file):
     out_str = ''
     while True:
         temp = file.read(1)
-        print(f"Temp: {temp}")
+        # print(f"Temp: {temp}")
         if temp == '' or temp == ' ' or temp == '\n':
             break
         else:
@@ -14,7 +14,7 @@ if __name__ == "__main__":
     # STEP 1: Read input file and build rank arrays
     with open('inputs/example_input1.txt') as file:
         length = int(file.readline())
-        print(f"Length: {length}")
+        # print(f"Length: {length}")
 
         hospital_ranks = [] # 2D array [x, y] where x is hospital number starting at 0
         for _ in range(length):
@@ -39,6 +39,7 @@ if __name__ == "__main__":
     free_hospitals = []
     for i in range(length):
         free_hospitals.append(i)
+
     # STEP 2: Run Gale-Shapley algorithm
     while free_hospitals:
         hospital = free_hospitals.pop(0)
@@ -60,8 +61,45 @@ if __name__ == "__main__":
 
     def convert_to_1_index(array):
         return [x + 1 for x in array]
-    print(f"Assignments of H: {convert_to_1_index(assignment_of_h)}")
-    print(f"Assignments of S: {convert_to_1_index(assignment_of_s)}")
 
-# TODO: Output
-    # Note, array index starts at 0, hospital/student numbers begin at 1. Just add 1.
+    # print(f"Assignments of H: {convert_to_1_index(assignment_of_h)}")
+    # print(f"Assignments of S: {convert_to_1_index(assignment_of_s)}")
+
+    # Fixed print function
+    for hospital in range(length):
+        print(f"{hospital + 1} {assignment_of_h[hospital] + 1}")
+
+
+    # Verifier
+    hospital_verify = [[0] * length for _ in range(length)]
+    student_verify = [[0] * length for _ in range(length)]
+
+    # Create ranking lists for hospitals and students, named ??_verify b/c ??_ranks is already used
+    for hospital in range(length):
+        for rank, student in enumerate(hospital_ranks[hospital]):
+            hospital_verify[hospital][student] = rank
+
+    for student in range(length):
+        for rank, hospital in enumerate(student_ranks[student]):
+            student_verify[student][hospital] = rank
+
+    # print(hospital_verify)
+    # print(student_verify)
+
+    stable = True; # Assumed stable at beginning
+    for hospital in range(length):
+        for student in range(length):
+            if student == assignment_of_h[hospital]:
+                continue
+
+            if hospital_verify[hospital][student] < hospital_verify[hospital][assignment_of_h[hospital]]:
+                if student_verify[student][hospital] < student_verify[student][assignment_of_s[hospital]]:
+                    # If a hospital prefers a student over its current assignment and the student does too,
+                        # Print blocking pair, make stable false, and break to save time
+                    print(f"UNSTABLE: blocking pair (hospital {hospital + 1}, student {student + 1}")
+                    stable = False
+                    break
+        if not stable:
+            break
+    if stable: # If no blocking pairs found, print "VALID STABLE"
+        print("VALID STABLE")

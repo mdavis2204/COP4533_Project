@@ -1,5 +1,6 @@
 from Gale_Shapley import gale_shapley, verification
 import time
+import copy
 
 def generate_normal_ranks(length):
     # Generates normal ranks for hospitals and students
@@ -30,6 +31,10 @@ def test_runtime(max_power_of_2):
         hospital_ranks = generate_normal_ranks(length)
         student_ranks = generate_normal_ranks(length)
 
+        # Make copies for verification (gale_shapley modifies the original arrays)
+        hospital_copy = copy.deepcopy(hospital_ranks)
+        student_copy = copy.deepcopy(student_ranks)
+
         # Get clock time before and after running Gale-Shapley algorithm
         start_time = time.perf_counter()
         assignment_of_h, assignment_of_s = gale_shapley(hospital_ranks, student_ranks, length, False)
@@ -39,7 +44,7 @@ def test_runtime(max_power_of_2):
 
         # Get verification runtimes
         v_start_time = time.perf_counter()
-        verification(length, hospital_ranks, student_ranks, assignment_of_h, assignment_of_s)
+        verification(length, hospital_copy, student_copy, assignment_of_h, assignment_of_s)
         v_end_time = time.perf_counter()
         v_runtime = v_end_time - v_start_time
         v_runtimes.append(v_runtime) # For sending to matplotlib to plot

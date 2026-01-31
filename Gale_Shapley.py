@@ -112,6 +112,14 @@ if __name__ == "__main__":
                 temp_student.append(read_num(file))
             student_ranks.append(temp_student)
 
+        if student_ranks.__len__() != length:
+            print("INVALID: inconsistent length of student ranks")
+            exit(-1)
+
+        if hospital_ranks.__len__() != length:
+            print("INVALID: inconsistent length of hospital ranks")
+            exit(-1)
+
         import copy
         hospital_copy = copy.deepcopy(hospital_ranks)
         student_copy = copy.deepcopy(student_ranks)

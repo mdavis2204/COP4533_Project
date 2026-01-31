@@ -18,4 +18,8 @@ For the Gale Shapley main function we assume that the user will edit the file pa
 
 Runtime Graph: ["runtime_graphs/Algorithm_Runtimes_Plotted.png"](./runtime_graphs/Algorithm_Runtimes_Plotted.png)
 
+Verification Time Graph: ["runtime_graphs/Verification_Runtimes_Plotted.png"](./runtime_graphs/Verification_Runtimes_Plotted.png)
+
 Runtime Function (requires matplotlib.pyplot): ["Plot_Runtime.py"](./Plot_Runtime.py)
+
+Run it with "python Plot_Runtime.py" and the graphs will be output to ["runtime_graphs"](./runtime_graphs)
